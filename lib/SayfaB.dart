@@ -9,36 +9,52 @@ class SayfaB extends StatefulWidget {
 }
 
 class _SayfaBState extends State<SayfaB> {
+
+  Future<bool> geriDonusTusu(BuildContext context) async{
+    print("Geri tuşu tıklandı");
+    return true;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Sayfa B"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              child: Text("Geldiği Sayfaya Dön"),
-              onPressed: (){
-                Navigator.pop(context);
-              },
-            ),
-            ElevatedButton(
-              child: Text("Anasayfaya Dön"),
-              onPressed: (){
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: (){
+            print("Appbar geri tuşu tıklandı");
+            Navigator.pop(context);
 
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              },
-            ),
-            ElevatedButton(
-              child: Text("Anasayfaya geçiş yap"),
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Anasayfa(title: toString())));
-              },
-            ),
-          ],
+          },
+        ),
+      ),
+      body: WillPopScope(
+        onWillPop: () => geriDonusTusu(context),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                child: Text("Geldiği Sayfaya Dön"),
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+              ),
+              ElevatedButton(
+                child: Text("Anasayfaya Dön"),
+                onPressed: (){
+
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
+              ),
+              ElevatedButton(
+                child: Text("Anasayfaya geçiş yap"),
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Anasayfa(title: toString())));
+                },
+              ),
+            ],
+          ),
         ),
       ),
 
